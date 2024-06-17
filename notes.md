@@ -128,13 +128,21 @@ Every field in a model follows these conventions:
    - `User`
    - Additional types such as `BigInt`, `Float`, `Boolean`, `DateTime`, and `JSON` (supported by a limited number of databases).
 
-3. **Type Modifiers**: Indicates optional or required status:
-   - `?` for optional fields
-   - `!` for required fields
+## Type Modifiers and Attributes in Prisma Models
 
-4. **Attributes**: Defines specific properties or behaviors of the field, such as:
-   - `@default(autoincrement())`: Sets a default value (e.g., auto-incrementing for IDs).
-   - `@unique`: Ensures the field's value is unique across all records.
+3. **Type Modifiers**: These modifiers denote the optional or required status of fields:
+   - `?` indicates that the field is optional.
+   - `!` indicates that the field is required.
+
+4. **Attributes**: Attributes define specific properties or behaviors of fields in Prisma models:
+   - `@default(value)`: Sets a default value for the field. For example, `@default(autoincrement())` is used to automatically increment values, typically for ID fields.
+   - `@unique`: Ensures that the field's value is unique across all records in the database.
+   - `@id`: Marks the field as the primary key of the model.
+   - `@map(name)`: Specifies the name of the database column to which the field maps.
+   - `@updatedAt`: Automatically updates the field with the current timestamp whenever the record is updated.
+   - `@relation`: Defines relationships between models, specifying fields and constraints.
+
+These attributes and modifiers allow precise control over the structure and behavior of database fields in Prisma, ensuring data integrity and flexibility in schema design.
 
 ### Extra Types
 
