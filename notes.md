@@ -1,34 +1,36 @@
-
-
-
 # Setting Up Prisma with TypeScript
 
 ## Initialize Project
 
 1. **Initialize npm project:**
-    ```bash
-    npm init -y
-    ```
+
+   ```bash
+   npm init -y
+   ```
 
 2. **Install Prisma, TypeScript, and related dependencies:**
-    ```bash
-    npm install prisma typescript ts-node @types/node --save-dev
-    ```
+
+   ```bash
+   npm install prisma typescript ts-node @types/node --save-dev
+   ```
 
 3. **Initialize TypeScript configuration:**
-    ```bash
-    npx tsc --init
-    ```
+
+   ```bash
+   npx tsc --init
+   ```
 
 4. **Initialize Prisma:**
-    ```bash
-    npx prisma init
-    ```
-    -This creates the `prisma` directory with `schema.prisma` and `.env` files.
-    -with default configuration for datasource and generator
 
-5. **Update `.env` file:**
-    Don't forget to update your database URL string in the `.env` file.
+   ```bash
+   npx prisma init
+   ```
+
+   -This creates the `prisma` directory with `schema.prisma` and `.env` files.
+   -with default configuration for datasource and generator
+
+5. **Update `.env` file:** Don't forget to update your database URL string in
+   the `.env` file.
 
 ## Datasource
 
@@ -45,21 +47,24 @@
 
 ## Migrations
 
-Run the following command to create a migration file and synchronize all changes with the database:
+Run the following command to create a migration file and synchronize all changes
+with the database:
+
 ```bash
 npx prisma migrate dev --name init
 ```
-
 
 ## Running Migrations
 
-To initiate a migration with an optional name (`init` in this example), use the following command:
+To initiate a migration with an optional name (`init` in this example), use the
+following command:
 
 ```bash
 npx prisma migrate dev --name init
 ```
 
-- --name is optional this will migratation file and make all the changes Sync with
+- --name is optional this will migratation file and make all the changes Sync
+  with
 - DB migraiton will contain equivalent .sql file first it creates the migration
 - then starts the generations
 
@@ -67,20 +72,21 @@ npx prisma migrate dev --name init
 - you migrate the changes will me added to our own "Prisam Client"
 
 - we need client lib for this
-- 
+-
 
 ## Installing Prisma Client
 
-To gain access to the Prisma client in your project, run the following command: or to install our client
+To gain access to the Prisma client in your project, run the following command:
+or to install our client
 
 ```bash
 npx i @prisma/client
 ```
 
-
 ## Generating Prisma Client
 
-To automatically generate the Prisma client and obtain starter code for using the client, run the following command:
+To automatically generate the Prisma client and obtain starter code for using
+the client, run the following command:
 
 ```bash
 npx prisma generate
@@ -96,14 +102,15 @@ export const prismaClient = new PrismaClient({log : ["query"] });
 you have these many options to log ==>> query, info, warn, error
 ![prima client logging options](image-1.png)
 
-
 ## Working with Prisma
 
-Since Prisma operations are asynchronous, ensure to handle errors with `try...catch` blocks or use async/await syntax.
+Since Prisma operations are asynchronous, ensure to handle errors with
+`try...catch` blocks or use async/await syntax.
 
 ### Define Script to Start
 
-To set up a development script that monitors changes in the Prisma client folder using Nodemon, add the following to your `package.json` file:
+To set up a development script that monitors changes in the Prisma client folder
+using Nodemon, add the following to your `package.json` file:
 
 ```json
 "scripts": {
@@ -113,41 +120,56 @@ To set up a development script that monitors changes in the Prisma client folder
 
 ## Models
 
-In Prisma, models represent tables in your database schema. Each model should at least include an `id` field.
+In Prisma, models represent tables in your database schema. Each model should at
+least include an `id` field.
 
 ### Field Structure
 
 Every field in a model follows these conventions:
 
 1. **Name of the Field**: Specifies the name of the field in the database table.
-   
-2. **Type of Field**: Describes the data type of the field. Supported types include:
+2. **Type of Field**: Describes the data type of the field. Supported types
+   include:
    - `Int`
    - `Id`
    - `String`
    - `User`
-   - Additional types such as `BigInt`, `Float`, `Boolean`, `DateTime`, and `JSON` (supported by a limited number of databases).
+   - Additional types such as `BigInt`, `Float`, `Boolean`, `DateTime`, and
+     `JSON` (supported by a limited number of databases).
 
 ## Type Modifiers and Attributes in Prisma Models
 
-3. **Type Modifiers**: These modifiers denote the optional or required status of fields:
+3. **Type Modifiers**: These modifiers denote the optional or required status of
+   fields:
+
    - `?` indicates that the field is optional.
    - `!` indicates that the field is required.
 
-4. **Attributes**: Attributes define specific properties or behaviors of fields in Prisma models:
-   - `@default(value)`: Sets a default value for the field. For example, `@default(autoincrement())` is used to automatically increment values, typically for ID fields.
-   - `@unique`: Ensures that the field's value is unique across all records in the database.
+4. **Attributes**: Attributes define specific properties or behaviors of fields
+   in Prisma models:
+   - `@default(value)`: Sets a default value for the field. For example,
+     `@default(autoincrement())` is used to automatically increment values,
+     typically for ID fields.
+   - `@unique`: Ensures that the field's value is unique across all records in
+     the database.
    - `@id`: Marks the field as the primary key of the model.
-   - `@map(name)`: Specifies the name of the database column to which the field maps.
-   - `@updatedAt`: Automatically updates the field with the current timestamp whenever the record is updated.
-   - `@relation`: Defines relationships between models, specifying fields and constraints.
+   - `@map(name)`: Specifies the name of the database column to which the field
+     maps.
+   - `@updatedAt`: Automatically updates the field with the current timestamp
+     whenever the record is updated.
+   - `@relation`: Defines relationships between models, specifying fields and
+     constraints.
 
-These attributes and modifiers allow precise control over the structure and behavior of database fields in Prisma, ensuring data integrity and flexibility in schema design.
+**Note** that using `id Int @id @default(autoincrement())` can hit max integer
+and cause integer overflow error and our instance will go down
+
+These attributes and modifiers allow precise control over the structure and
+behavior of database fields in Prisma, ensuring data integrity and flexibility
+in schema design.
 
 ### Extra Types
 
-- **unsupported**: Used when migrating between different databases to list unsupported data types.
-  
+- **unsupported**: Used when migrating between different databases to list
+  unsupported data types.
 - **Bytes**: Used to represent byte information.
-  
 - **JSON**: Supported by only a few databases.

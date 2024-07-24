@@ -17,6 +17,7 @@ datasource db {
 
 //  defining the tables/relations called models
 // it should at least contain a id field
+// autoicrement() give int id which can cause integer overflow and our instance will go down
 model User {
   id Int @id @default(autoincrement())
   name String
