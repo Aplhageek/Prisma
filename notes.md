@@ -137,6 +137,63 @@ Every field in a model follows these conventions:
    - Additional types such as `BigInt`, `Float`, `Boolean`, `DateTime`, and
      `JSON` (supported by a limited number of databases).
 
+#### Scalar Types
+
+Scalar types represent the most basic kinds of data that can be stored in a database.
+
+- **`Boolean`**
+  - Stores a boolean value (`true` or `false`).
+
+- **`Bytes`**
+  - Used for storing binary data.
+
+- **`DateTime`**
+  - Represents date and time values.
+
+- **`Decimal`**
+  - Stores decimal numbers with arbitrary precision, ideal for financial calculations.
+
+- **`Float`**
+  - Represents floating-point numbers.
+
+- **`Int`**
+  - Stores signed integers.
+
+- **`String`**
+  - Used for storing sequences of characters.
+
+- **`Json`**
+  - Stores JSON objects, allowing for flexible data structures.
+
+- **`BigInt`**
+  - Used for storing large integers.
+
+#### Object Types
+
+Object types are custom-defined types that represent complex data structures.
+
+- **`User`**
+  - An example of a custom object type. It represents a user entity in the application, defined according to the application's needs.
+
+#### Special Types
+
+Special types serve unique purposes in database modeling.
+
+- **`Id`**
+  - Represents unique identifiers, typically used for primary keys.
+
+- **`Enum`**
+  - Defines a field that can only contain one value from a predefined list of values.
+
+#### Array Types
+
+Array types allow fields to store collections of scalar values.
+
+- **Arrays**
+  - Prisma supports arrays of any scalar type, denoted by appending `[]` to the type name (e.g., `String[]`).
+
+
+
 ## Type Modifiers and Attributes in Prisma Models
 
 3. **Type Modifiers**: These modifiers denote the optional or required status of
